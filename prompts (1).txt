@@ -1,0 +1,142 @@
+Prompts and Responses Used to Create graphics_editor.c
+=======================================================
+
+
+PROMPT 1:
+---------
+Requirements: Create a repository in GitHub. Submit the link to the GitHub
+repository in Moodle. (In the online text field provided in the assignment)
+Daily push to GitHub is mandatory.
+Problem Statement: Write a 2d graphics editor using * and _.
+1. Write functions to draw a circle, rectangle, line, and triangle.
+2. You should be able to add objects to the picture, delete objects from the
+   picture, and modify objects in the picture.
+3. Use a 2d array of characters to store the picture.
+4. Write a function to display the picture. Additionally, you can use the
+   ncurses package to create menus and draw pictures.
+make it so that the code is unique and cannot be similar to any of the
+other types of codes
+
+RESPONSE 1:
+-----------
+Created the full C program named PixelForge2D with the following features:
+- Canvas: 60x30 2D char array using '*' for fill and '_' for outlines
+- Shapes: Circle (midpoint algorithm), Rectangle, Line (Bresenham),
+  Triangle (scan-line fill)
+- Linked list to store all shape objects
+- Each shape node carries a function pointer for polymorphic drawing
+- Operations: shape_add(), shape_delete(), shape_modify(), scene_render()
+- Interactive menu (options 1-9 + 0 to exit)
+- Demo scene auto-loaded on startup (frame, sun, mountain, horizon, house)
+- Also provided: Makefile and README.md
+- Build command: gcc -Wall -std=c11 -o graphics_editor graphics_editor.c -lm
+
+
+---------------------------------------------------------------
+
+
+PROMPT 2:
+---------
+give me the code for the execution in vs code
+
+RESPONSE 2:
+-----------
+Provided VS Code setup instructions:
+- Step 1: Install a C compiler
+    Windows: MinGW-w64, add C:\mingw64\bin to PATH
+    Mac: xcode-select --install
+    Linux: sudo apt install gcc
+- Step 2: Install VS Code extensions — "C/C++" by Microsoft, "Code Runner" by Jun Han
+- Step 3: Create .vscode folder with two config files:
+
+  .vscode/tasks.json — compiles using gcc with flags -Wall -Wextra -std=c11 -O2 -lm
+  .vscode/launch.json — runs the compiled binary with externalConsole: true
+                        so the interactive menu works properly
+
+- Step 4: Run with Ctrl+Shift+B to build, F5 to build and run
+- Project folder structure:
+    my-project/
+    ├── graphics_editor.c
+    ├── Makefile
+    ├── README.md
+    └── .vscode/
+        ├── tasks.json
+        └── launch.json
+
+
+---------------------------------------------------------------
+
+
+PROMPT 3:
+---------
+give me the complete code, ready to execute
+
+RESPONSE 3:
+-----------
+Provided the entire graphics_editor.c source code in one block, ready to
+copy-paste and compile. Included the compile and run commands:
+
+  Compile: gcc -Wall -std=c11 -o graphics_editor graphics_editor.c -lm
+  Run (Mac/Linux): ./graphics_editor
+  Run (Windows):   graphics_editor.exe
+
+The code included all sections:
+- Canvas configuration defines and global state
+- ShapeParams struct and ShapeNode linked list with function pointers
+- canvas_clear(), canvas_set(), canvas_display()
+- draw_line_raw() using Bresenham algorithm
+- draw_circle_outline() using midpoint circle algorithm
+- draw_circle_filled() using scan-line
+- draw_circle(), draw_rectangle(), draw_line_shape(), draw_triangle()
+- shape_add(), shape_delete(), shape_modify(), scene_render(), shapes_list()
+- Interactive menu: print_banner(), print_menu(), ask_fill()
+- Input handlers: handle_add_circle/rectangle/line/triangle, handle_delete,
+  handle_modify
+- demo_scene() with 5 pre-loaded shapes
+- main() with full menu loop
+
+
+---------------------------------------------------------------
+
+
+PROMPT 4:
+---------
+make it so that the index is mentioned
+
+RESPONSE 4:
+-----------
+Updated the code to show Index everywhere relevant. Key changes made:
+
+1. Added list_index field to ShapeNode struct (1-based position in list)
+
+2. Added reindex_list() function — rebuilds list_index for all nodes
+   after every add or delete so indexes stay clean with no gaps
+
+3. Added type_name() helper function — returns shape type as a string
+
+4. Every add/delete/modify now prints:
+   [+] Added   Index #1 | ID 1 | Rectangle | label='frame'
+   [-] Deleted Index #2 | ID 2 | Circle    | label='sun'
+   [~] Modified Index #3 | ID 3 | Line     | label='horizon'
+
+5. shapes_list() (option 7) now shows a formatted table:
+   Index   ID    Type          Label                 Fill
+   ------  ----  ------------  --------------------  ----
+   #1      1     Rectangle     frame                 _
+   #2      2     Circle        sun                   *
+
+6. canvas_display() now shows:
+   - Shape count in header: Canvas [5 shape(s) loaded]
+   - Row numbers on left:   Row 00 | ... |
+
+7. Delete (option 5) and Modify (option 6) now auto-show the index
+   table before asking for an ID, so user always knows what to enter
+
+8. Canvas coordinate hints added to all input prompts:
+   Centre col (x, 0-59): 
+   Centre row (y, 0-29): 
+
+=======================================================
+Total Prompts: 4
+Final Output:  graphics_editor.c (2D ASCII Graphics Editor in C)
+=======================================================
